@@ -8,9 +8,11 @@ A Q-learning implementation for tic-tac-toe.
    conda activate TicTacToe
 
 2. Install dependencies:
+   ```bash
    pip install numpy
 
 3. Run:
+   ```bash
    python3 main.py
 
 
