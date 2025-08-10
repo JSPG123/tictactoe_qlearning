@@ -86,6 +86,16 @@ class TicTacToe:
             return True
         return False
     
+    def check_potential_win(self, player):
+        # Check if player has a potential win (two in a row/column/diagonal with empty spot)
+        for action in self.get_possible_actions():
+            temp_board = self.board.copy()
+            row, col = action
+            temp_board[row, col] = player
+            if self.check_win(player):
+                return action
+        return None
+    
     def print_board(self):
         symbols = {0: '.', 1: 'X', -1: 'O'}
         for row in self.board:

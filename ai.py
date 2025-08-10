@@ -2,13 +2,13 @@ import numpy as np
 import random
 
 class AI:
-    def __init__(self, alpha=0.1, gamma=0.95, epsilon=0.2, episodes=100000):
+    def __init__(self, alpha=0.1, gamma=0.95, epsilon=0.2, episodes=150000):
         self.q_table = {}
         self.alpha = alpha
         self.gamma = gamma
         self.epsilon = epsilon
         self.epsilon_min = 0.01
-        self.epsilon_decay = 0.995
+        self.epsilon_decay = 0.999
         self.episodes = episodes
         
     def choose_action(self, state, possible_actions, epsilon=None):
@@ -60,11 +60,14 @@ class AI:
                 
                 current_player = env.current_player
                 # AI plays as player 1 (X)
-                if current_player == 1:
+                if env.current_player == 1:
                     action = self.choose_action(state, actions)
+                    # Check if AI blocks opponent's win
+                    block_action = env.check_potential_win(-1)
+                    reward_adjust = 0.8 if block_action and action == block_action else 0
                 else:
-                    # Smarter opponent: 50% chance to make a winning/blocking move
-                    if random.random() < 0.5:
+                    # Smarter opponent: 90% chance to make a winning/blocking move
+                    if random.random() < 0.9:
                         # Check for winning move (player -1)
                         action = self._opponent_winning_move(env, -1)
                         if action is None:
@@ -74,18 +77,23 @@ class AI:
                             action = random.choice(actions) if actions else None
                     else:
                         action = random.choice(actions) if actions else None
+                    reward_adjust = 0
                 if action is None:
                     break
                 next_state, reward, done = env.step(action)
                 if env.current_player == -1:  # Update Q-table only for AI's actions (player 1)
-                    self.update_q_value(state, action, reward, next_state, done, env)
+                    adjusted_reward = reward + reward_adjust
+                    self.update_q_value(state, action, adjusted_reward, next_state, done, env)
                     
                 state = next_state
             # Decay epsilon
             self.epsilon = max(self.epsilon_min, self.epsilon * self.epsilon_decay)
     
-    def save_q_table(self, filename='q_table_tictactoe.py'):
+    def save_q_table(self, filename='q_table_tictactoe.npy'):
         np.save(filename, self.q_table)
+        
+    def load_q_table(self, filename='q_table_tictactoe.npy'):
+        self.q_table = np.load(filename, allow_pickle=True).item()
     
     def play_game(self, env):
         state = env.reset()

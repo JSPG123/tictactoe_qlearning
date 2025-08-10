@@ -71,3 +71,9 @@ Increased train episodes from 10000 to 100000, added epsilon decay for more accu
 Version 1.0.1:
 AI model sometimes still not perform "best" action due to training method (opponent player will randomly choose possible action)
 Added logic for a smart opponent player, will randomly pick the action to stop AI winning
+
+Version 1.1.0:
+User can play with the trained AI model by entering row and col number
+
+Version 1.1.1:
+AI will train itself if losing to user (receivng a negative reward)
