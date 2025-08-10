@@ -15,7 +15,6 @@ A Q-learning implementation for tic-tac-toe.
    ```bash
    python3 main.py
 
-
 What is Tic Tac Toe?
 Tic-tac-toe is a simple two-player game, also known as Noughts and Crosses or Xs and Os. It's played on a 3x3 grid where players take turns marking spaces with their symbol (either "X" or "O"). The goal is to get three of your symbols in a row—horizontally, vertically, or diagonally—before your opponent does. If neither player achieves this and all spaces are filled, the game ends in a draw. (Definition from Grok)
 https://medium.com/@ardra4/tic-tac-toe-using-q-learning-a-reinforcement-learning-approach-d606cfdd64a3
