@@ -1,0 +1,12 @@
+# Virtual environment
+TicTacToe/
+
+# Q-table
+q_table_tictactoe.npy
+
+# macOS metadata
+.DS_Store
+
+# Python cache
+__pycache__/
+*.pyc
