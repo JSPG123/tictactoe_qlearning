@@ -1,4 +1,4 @@
-from tictactoe import TicTacToe
+from src.tictactoe import TicTacToe
 from ai import AI
 from human_player import HumanPlayer
 
